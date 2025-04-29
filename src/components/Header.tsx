@@ -1,89 +1,114 @@
-import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsScrolled(offset > 50);
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "py-2 bg-background/95 backdrop-blur-sm shadow-sm" 
-          : "py-4 bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
       }`}
+      itemScope
+      itemType="http://schema.org/WPHeader"
     >
-      <div className="container flex items-center justify-between">
-        <a href="#" className="text-2xl font-bold font-playfair italic">
-          <span className="text-primary">Дневник</span>Мечты
-        </a>
-        
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <a href="#about" className="hover:text-primary transition-colors">Обо мне</a>
-          <a href="#works" className="hover:text-primary transition-colors">Мои работы</a>
-          <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
-          <a href="#blog" className="hover:text-primary transition-colors">Блог</a>
-          <Button>Связаться</Button>
-        </nav>
-        
-        {/* Mobile Menu Button */}
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      <div className="container py-4 flex items-center justify-between">
+        <Link 
+          to="/" 
+          className="text-2xl font-playfair font-bold text-primary flex items-center"
+          aria-label="Александра Журналова - Главная страница"
         >
-          {mobileMenuOpen ? <X /> : <Menu />}
-        </Button>
-      </div>
-      
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-sm shadow-md py-4">
-          <nav className="container flex flex-col space-y-4">
-            <a 
-              href="#about" 
-              className="px-4 py-2 hover:bg-accent/50 rounded-md"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Обо мне
-            </a>
-            <a 
-              href="#works" 
-              className="px-4 py-2 hover:bg-accent/50 rounded-md"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Мои работы
-            </a>
-            <a 
-              href="#gallery" 
-              className="px-4 py-2 hover:bg-accent/50 rounded-md"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Галерея
-            </a>
-            <a 
-              href="#blog" 
-              className="px-4 py-2 hover:bg-accent/50 rounded-md"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Блог
-            </a>
-            <Button className="mx-4">Связаться</Button>
-          </nav>
+          <span className="font-caveat">Александра</span>
+          <span className="ml-2">Журналова</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:block" itemScope itemType="http://schema.org/SiteNavigationElement">
+          <ul className="flex items-center space-x-8">
+            {[
+              { title: "Главная", href: "/" },
+              { title: "Обо мне", href: "#about" },
+              { title: "Мои работы", href: "#works" },
+              { title: "Галерея", href: "#gallery" },
+              { title: "Блог", href: "#blog" },
+            ].map((item) => (
+              <li key={item.title}>
+                <a 
+                  href={item.href} 
+                  className="font-medium hover:text-primary transition-colors"
+                  itemProp="url"
+                >
+                  <span itemProp="name">{item.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="hidden md:block">
+          <Button>Связаться со мной</Button>
         </div>
+
+        {/* Mobile menu button */}
+        <button 
+          className="md:hidden text-foreground" 
+          onClick={toggleMenu}
+          aria-expanded={isOpen}
+          aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <nav 
+          className="md:hidden bg-white border-t py-4 animate-fade-in"
+          itemScope 
+          itemType="http://schema.org/SiteNavigationElement"
+        >
+          <ul className="container space-y-4">
+            {[
+              { title: "Главная", href: "/" },
+              { title: "Обо мне", href: "#about" },
+              { title: "Мои работы", href: "#works" },
+              { title: "Галерея", href: "#gallery" },
+              { title: "Блог", href: "#blog" },
+            ].map((item) => (
+              <li key={item.title}>
+                <a 
+                  href={item.href} 
+                  className="block py-2 font-medium hover:text-primary transition-colors"
+                  onClick={toggleMenu}
+                  itemProp="url"
+                >
+                  <span itemProp="name">{item.title}</span>
+                </a>
+              </li>
+            ))}
+            <li>
+              <Button className="w-full">Связаться со мной</Button>
+            </li>
+          </ul>
+        </nav>
       )}
     </header>
   );
