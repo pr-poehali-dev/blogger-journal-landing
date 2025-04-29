@@ -18,6 +18,10 @@ function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/about" element={<Index about={true} />} />
+            <Route path="/works" element={<Index works={true} />} />
+            <Route path="/gallery" element={<Index gallery={true} />} />
+            <Route path="/newsletter" element={<Index newsletter={true} />} />
             <Route path="/sitemap" element={<SiteMap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
