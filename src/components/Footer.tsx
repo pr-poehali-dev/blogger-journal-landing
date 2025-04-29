@@ -1,4 +1,4 @@
-import { Instagram, Youtube, TikTok, Mail } from "lucide-react";
+import { Instagram, Youtube, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -44,7 +44,7 @@ const Footer = () => {
                 <Youtube className="w-5 h-5 text-primary" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary/20 transition-colors">
-                <TikTok className="w-5 h-5 text-primary" />
+                <span className="text-primary text-sm font-bold">TT</span>
               </a>
             </div>
           </div>
