@@ -1,123 +1,65 @@
-import { Button } from "@/components/ui/button";
+import { ArrowDown } from 'lucide-react';
+import { Button } from './ui/button';
 
 const Hero = () => {
   return (
-    <section 
-      className="relative min-h-screen pt-24 pb-16 flex items-center"
-      id="hero"
-      itemScope
-      itemType="http://schema.org/CreativeWork"
-    >
-      {/* Декоративные элементы */}
-      <div className="absolute top-40 right-10 w-20 h-20 bg-journal-pink rounded-full opacity-60 animate-float" aria-hidden="true" />
-      <div className="absolute bottom-32 left-10 w-16 h-16 bg-journal-peach rounded-full opacity-60 animate-float" style={{ animationDelay: "2s" }} aria-hidden="true" />
-      <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-journal-purple rounded-full opacity-40 animate-float" style={{ animationDelay: "1s" }} aria-hidden="true" />
-      
-      <div className="container grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-playfair"
-            itemProp="headline"
-          >
-            Твой дневник — <span className="text-primary italic">твоя история</span>
-          </h1>
-          <p 
-            className="text-lg md:text-xl mb-8 text-muted-foreground"
-            itemProp="description"
-          >
-            Превращаю обычные дневники в произведения искусства. 
-            Делюсь вдохновением и техниками создания красивых коллажей 
-            в блокнотах и ежедневниках.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              size="lg" 
-              className="font-medium"
-              aria-label="Записаться на мастер-классы"
-            >
-              Мои мастер-классы
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="font-medium"
-              aria-label="Узнать больше о моих курсах"
-            >
-              Узнать больше
-            </Button>
+    <section className="pt-24 min-h-screen flex flex-col justify-center relative hero-pattern overflow-hidden">
+      <div className="container mx-auto px-4 py-12 md:py-24 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+              Креативные дневники и коллажи
+              <span className="text-primary-foreground block mt-2">для вашего вдохновения</span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-lg">
+              Превратите ваши мысли в произведения искусства с помощью моих авторских техник 
+              создания уникальных блокнотов и коллажей
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button className="rounded-full text-lg px-6 py-6">
+                Начать творить
+              </Button>
+              <Button variant="outline" className="rounded-full text-lg px-6 py-6">
+                Посмотреть работы
+              </Button>
+            </div>
           </div>
           
-          <div className="mt-12 flex items-center">
-            <div className="flex -space-x-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden">
-                  <img 
-                    src={`https://i.pravatar.cc/40?img=${i+10}`}
-                    alt={`Отзыв ученика ${i}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    width="40"
-                    height="40"
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="ml-4">
-              <p className="font-medium">Более 2,000+ довольных учеников</p>
-              <div 
-                className="flex items-center mt-1"
-                itemProp="aggregateRating"
-                itemScope
-                itemType="http://schema.org/AggregateRating"
-              >
-                <meta itemProp="ratingValue" content="4.9" />
-                <meta itemProp="bestRating" content="5" />
-                <meta itemProp="ratingCount" content="2074" />
-                {Array(5).fill(0).map((_, i) => (
-                  <span key={i} className="text-amber-400" aria-hidden="true">★</span>
-                ))}
-                <span className="ml-1 text-sm text-muted-foreground">
-                  (4.9/5)
-                </span>
+          <div className="order-1 md:order-2 relative">
+            {/* Декоративные элементы */}
+            <div className="absolute -top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full mix-blend-multiply blur-xl animate-float"></div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/30 rounded-full mix-blend-multiply blur-xl animate-float" style={{ animationDelay: "2s" }}></div>
+            
+            {/* Основное изображение */}
+            <div className="relative diary-border bg-white p-4 md:p-6 rounded-lg rotate-3 transform hover:rotate-0 transition-transform duration-300">
+              <div className="washi-tape" style={{ "--tape-color": "#E9D8FD" } as React.CSSProperties}></div>
+              <div className="washi-tape" style={{ "--tape-color": "#FBD38D", "--tape-rotate": "3deg", "--tape-top": "-15px", "--tape-left": "60%" } as React.CSSProperties}></div>
+              
+              <img 
+                src="https://images.unsplash.com/photo-1598618443855-232ee0f819f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" 
+                alt="Творческий дневник с коллажами и рисунками" 
+                className="rounded-md w-full object-cover aspect-[4/3] shadow-sm"
+              />
+              
+              <div className="mt-4 flex justify-between items-center">
+                <p className="font-caveat text-2xl text-primary-foreground">Мой арт-журнал</p>
+                <p className="text-sm text-muted-foreground">Апрель 2025</p>
               </div>
             </div>
           </div>
         </div>
-        
-        <div className="relative hidden md:block">
-          <div className="relative w-full h-[500px] rounded-2xl shadow-2xl overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1598520106830-8c45c2035460?auto=format&fit=crop&w=800&q=80" 
-              alt="Творческий дневник с коллажами и рисунками" 
-              className="w-full h-full object-cover"
-              loading="eager"
-              width="800"
-              height="500"
-              itemProp="image"
-            />
-          </div>
-          <div className="absolute -bottom-10 -left-10 w-64 h-48 rounded-lg shadow-xl overflow-hidden border-4 border-background rotate-6">
-            <img 
-              src="https://images.unsplash.com/photo-1527334919515-b8dee906a34b?auto=format&fit=crop&w=300&q=80" 
-              alt="Коллаж в блокноте с фотографиями и наклейками" 
-              className="w-full h-full object-cover"
-              loading="lazy"
-              width="300"
-              height="225"
-            />
-          </div>
-          <div className="absolute -top-8 -right-8 w-48 h-64 rounded-lg shadow-xl overflow-hidden border-4 border-background -rotate-6">
-            <img 
-              src="https://images.unsplash.com/photo-1618005198919-177e9dd3b230?auto=format&fit=crop&w=300&q=80" 
-              alt="Материалы для творчества: наклейки, ленты, вырезки" 
-              className="w-full h-full object-cover"
-              loading="lazy"
-              width="300"
-              height="400"
-            />
-          </div>
-        </div>
       </div>
+      
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce">
+        <span className="text-sm text-muted-foreground mb-2">Узнать больше</span>
+        <ArrowDown className="text-primary-foreground" />
+      </div>
+      
+      {/* Декоративные элементы фона */}
+      <div className="absolute top-1/3 right-0 w-64 h-64 bg-accent/20 rounded-full mix-blend-multiply blur-xl"></div>
+      <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-secondary/20 rounded-full mix-blend-multiply blur-xl"></div>
     </section>
   );
 };

@@ -1,99 +1,98 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from 'lucide-react';
+import { Button } from './ui/button';
 
 const Works = () => {
+  // Примеры работ для отображения
   const works = [
     {
       id: 1,
-      title: "Летний дневник путешествий",
-      description: "Яркий дневник с техниками коллажирования из собранных во время путешествия материалов.",
-      image: "https://images.unsplash.com/photo-1623625434462-e5e42318ae49?auto=format&fit=crop&w=600&q=80",
-      category: "Дневник путешествий",
-      date: "15 апреля 2025",
+      title: "Весенний дневник",
+      description: "Креативный дневник с элементами ботаники и акварельными зарисовками",
+      imageUrl: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
+      date: "Март 2025",
+      rotate: "-2deg"
     },
     {
       id: 2,
-      title: "Ботанический скетчбук",
-      description: "Сочетание акварельных зарисовок растений с техниками скрапбукинга и декоративными элементами.",
-      image: "https://images.unsplash.com/photo-1617791160536-598cf32026fb?auto=format&fit=crop&w=600&q=80",
-      category: "Скетчбук",
-      date: "2 марта 2025",
+      title: "Путешествие мечты",
+      description: "Арт-журнал о путешествиях с коллажами и памятными вещицами",
+      imageUrl: "https://images.unsplash.com/photo-1514474959185-1472d4c4e0d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
+      date: "Февраль 2025",
+      rotate: "1deg"
     },
     {
       id: 3,
-      title: "Семейный альбом воспоминаний",
-      description: "Техники создания многослойных коллажей с использованием семейных фотографий и памятных вещей.",
-      image: "https://images.unsplash.com/photo-1599442149601-9594011bac87?auto=format&fit=crop&w=600&q=80",
-      category: "Фотоальбом",
-      date: "10 февраля 2025",
-    },
+      title: "Творческие моменты",
+      description: "Блокнот идей с техниками смешанных медиа и вдохновляющими цитатами",
+      imageUrl: "https://images.unsplash.com/photo-1627163439134-7a8c47e08208?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
+      date: "Январь 2025",
+      rotate: "2deg"
+    }
   ];
 
   return (
-    <section 
-      id="works" 
-      className="py-20"
-      itemScope
-      itemType="http://schema.org/CollectionPage"
-    >
-      <div className="container">
-        <div className="text-center mb-16">
-          <h2 
-            className="text-3xl md:text-4xl font-bold font-playfair mb-4"
-            itemProp="name"
-          >
-            Мои последние работы
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Вдохновляйтесь моими недавними проектами и творческими экспериментами в создании уникальных дневников и альбомов
-          </p>
-          <div className="w-20 h-1 bg-primary mx-auto mt-6"></div>
+    <section id="works" className="py-20 bg-secondary/10">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Мои последние работы</h2>
+            <p className="text-muted-foreground max-w-2xl">
+              Познакомьтесь с моими недавними проектами, вдохновляйтесь и создавайте свои уникальные дневники
+            </p>
+          </div>
+          <div className="hidden md:block">
+            <Button variant="outline" className="group">
+              Все работы 
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {works.map((work) => (
-            <Card 
-              key={work.id} 
-              className="overflow-hidden hover:shadow-lg transition-shadow group"
-              itemScope
-              itemType="http://schema.org/CreativeWork"
-            >
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src={work.image} 
-                  alt={work.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                  itemProp="image"
-                />
-              </div>
-              <CardHeader>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-primary font-medium px-3 py-1 bg-primary/10 rounded-full" itemProp="genre">
-                    {work.category}
-                  </span>
-                  <time dateTime={work.date.replace(/\s/g, "-")} className="text-xs text-muted-foreground" itemProp="dateCreated">
-                    {work.date}
-                  </time>
+            <div key={work.id} className="group relative">
+              <div 
+                className="polaroid bg-white p-4 transition-all duration-300"
+                style={{ 
+                  "--rotate": work.rotate 
+                } as React.CSSProperties}
+              >
+                <div className="aspect-[4/3] overflow-hidden mb-4">
+                  <img 
+                    src={work.imageUrl} 
+                    alt={work.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                <CardTitle itemProp="name">{work.title}</CardTitle>
-                <CardDescription itemProp="description">{work.description}</CardDescription>
-              </CardHeader>
-              <CardFooter>
-                <Button variant="link" className="p-0 h-auto font-medium" aria-label={`Подробнее о работе ${work.title}`}>
-                  Смотреть подробнее <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
+                <h3 className="text-xl font-semibold mb-2 font-playfair">{work.title}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{work.description}</p>
+                <div className="flex justify-between items-center">
+                  <span className="font-caveat text-lg text-primary-foreground">{work.date}</span>
+                  <Button variant="link" className="p-0 h-auto text-primary-foreground group-hover:underline">
+                    Подробнее
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Washi tape decoration */}
+              <div 
+                className="washi-tape"
+                style={{ 
+                  "--tape-color": work.id % 3 === 0 ? "#9AE6B4" : work.id % 3 === 1 ? "#FBD38D" : "#BEE3F8",
+                  "--tape-rotate": `${work.id % 2 === 0 ? -3 : 3}deg`,
+                  "--tape-top": "-12px",
+                  "--tape-left": `${30 + (work.id * 10)}%`,
+                  "--tape-width": "100px"
+                } as React.CSSProperties}
+              ></div>
+            </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" aria-label="Посмотреть все мои работы и проекты">
-            Смотреть все работы
+        <div className="mt-12 text-center md:hidden">
+          <Button variant="outline" className="group">
+            Все работы 
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       </div>

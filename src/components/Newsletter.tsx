@@ -1,110 +1,111 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Check } from "lucide-react";
+import { useState } from 'react';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { CheckCircle2, Send } from 'lucide-react';
 
 const Newsletter = () => {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && email.includes("@")) {
-      // В реальном приложении здесь был бы API-запрос
-      setSubmitted(true);
-    }
+    
+    if (!email) return;
+    
+    setIsLoading(true);
+    
+    // Имитация запроса
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSubmitted(true);
+      setEmail('');
+    }, 1500);
   };
 
   return (
-    <section 
-      id="newsletter" 
-      className="py-20 relative overflow-hidden"
-      itemScope
-      itemType="http://schema.org/NewsArticle"
-    >
+    <section id="newsletter" className="py-20 bg-primary/10 relative overflow-hidden">
       {/* Декоративные элементы */}
-      <div className="absolute -top-12 -right-12 w-48 h-48 bg-journal-purple/10 rounded-full" aria-hidden="true"></div>
-      <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-journal-pink/10 rounded-full" aria-hidden="true"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full mix-blend-multiply blur-xl"></div>
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-secondary/20 rounded-full mix-blend-multiply blur-xl"></div>
       
-      <div className="container relative">
-        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-muted">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-3xl mx-auto bg-white rounded-xl p-8 shadow-lg diary-border">
           <div className="text-center mb-8">
-            <h2 
-              className="text-3xl font-bold font-playfair mb-4"
-              itemProp="headline"
-            >
-              Подпишись на мой блог
-            </h2>
-            <p 
-              className="text-muted-foreground"
-              itemProp="description"
-            >
-              Получай вдохновение, советы по созданию коллажей и информацию о новых мастер-классах прямо на свою почту
+            <h2 className="text-3xl font-bold mb-4">Подписаться на блог</h2>
+            <p className="text-muted-foreground">
+              Получайте вдохновение, советы и новые идеи для творчества прямо на вашу почту
             </p>
           </div>
-          
-          {submitted ? (
-            <div className="text-center py-4 flex flex-col items-center justify-center">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <Check className="text-green-600 w-6 h-6" />
+
+          {isSubmitted ? (
+            <div className="text-center py-6">
+              <div className="inline-flex items-center justify-center p-4 bg-green-100 text-green-700 rounded-full mb-4">
+                <CheckCircle2 size={32} />
               </div>
-              <h3 className="text-xl font-medium mb-2">Спасибо за подписку!</h3>
+              <h3 className="text-xl font-bold mb-2">Спасибо за подписку!</h3>
               <p className="text-muted-foreground">
-                Я отправила тебе письмо с подтверждением и небольшим подарком.
+                Я отправила вам письмо с подтверждением. Проверьте вашу почту и подтвердите подписку.
               </p>
+              <Button 
+                variant="link" 
+                className="mt-4"
+                onClick={() => setIsSubmitted(false)}
+              >
+                Подписать другой email
+              </Button>
             </div>
           ) : (
-            <form 
-              onSubmit={handleSubmit}
-              className="space-y-4"
-              itemProp="potentialAction"
-              itemScope
-              itemType="http://schema.org/SubscribeAction"
-            >
-              <div className="grid md:grid-cols-[1fr_auto] gap-4">
-                <div>
-                  <label htmlFor="email" className="sr-only">Email</label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Введи свой email"
-                    className="h-12"
-                    required
-                    aria-required="true"
-                    autoComplete="email"
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Input
+                  type="email"
+                  placeholder="Ваш email адрес"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1"
+                  required
+                />
                 <Button 
                   type="submit" 
-                  size="lg"
-                  aria-label="Подписаться на рассылку"
+                  disabled={isLoading}
+                  className="relative"
                 >
-                  Подписаться
+                  <span className={`transition-opacity ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+                    Подписаться <Send className="ml-2 h-4 w-4" />
+                  </span>
+                  {isLoading && (
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                  )}
                 </Button>
               </div>
-              
-              <p className="text-xs text-center text-muted-foreground mt-4">
-                Подписываясь, ты соглашаешься получать рассылку. Ты можешь отписаться в любой момент.
-                Я ценю твою приватность и никогда не передам твои данные третьим лицам.
+              <p className="text-xs text-muted-foreground text-center">
+                Подписываясь, вы соглашаетесь получать письма о новостях блога, новых техниках и творческих идеях. 
+                Вы можете отписаться в любой момент.
               </p>
             </form>
           )}
-          
-          <div className="mt-8 pt-8 border-t border-muted">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              {[
-                { number: "12+", label: "лет опыта" },
-                { number: "50+", label: "мастер-классов" },
-                { number: "5000+", label: "подписчиков" },
-                { number: "100+", label: "статей в блоге" },
-              ].map((stat, index) => (
-                <div key={index}>
-                  <p className="text-2xl font-bold text-primary">{stat.number}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </div>
-              ))}
+
+          <div className="mt-8 pt-6 border-t border-border">
+            <h3 className="text-lg font-semibold mb-4 text-center">Что вы получите:</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="text-center p-3">
+                <div className="font-caveat text-xl text-primary-foreground mb-2">Еженедельные идеи</div>
+                <p className="text-sm text-muted-foreground">Свежие идеи для ваших творческих проектов</p>
+              </div>
+              <div className="text-center p-3">
+                <div className="font-caveat text-xl text-primary-foreground mb-2">Мастер-классы</div>
+                <p className="text-sm text-muted-foreground">Пошаговые инструкции по созданию проектов</p>
+              </div>
+              <div className="text-center p-3">
+                <div className="font-caveat text-xl text-primary-foreground mb-2">Вдохновение</div>
+                <p className="text-sm text-muted-foreground">Красивые примеры работ для вдохновения</p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,78 +1,63 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from './ui/button';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 10);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
+        isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'
       }`}
-      itemScope
-      itemType="http://schema.org/WPHeader"
     >
-      <div className="container py-4 flex items-center justify-between">
-        <Link 
-          to="/" 
-          className="text-2xl font-playfair font-bold text-primary flex items-center"
-          aria-label="Александра Журналова - Главная страница"
-        >
-          <span className="font-caveat">Александра</span>
-          <span className="ml-2">Журналова</span>
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <span className="text-xl md:text-2xl font-bold font-playfair">
+            Александра
+            <span className="text-primary-foreground"> Журналова</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:block" itemScope itemType="http://schema.org/SiteNavigationElement">
-          <ul className="flex items-center space-x-8">
-            {[
-              { title: "Главная", href: "/" },
-              { title: "Обо мне", href: "#about" },
-              { title: "Мои работы", href: "#works" },
-              { title: "Галерея", href: "#gallery" },
-              { title: "Блог", href: "#blog" },
-            ].map((item) => (
-              <li key={item.title}>
-                <a 
-                  href={item.href} 
-                  className="font-medium hover:text-primary transition-colors"
-                  itemProp="url"
-                >
-                  <span itemProp="name">{item.title}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+        <nav className="hidden md:flex items-center space-x-6">
+          <a href="#about" className="text-foreground hover:text-primary-foreground transition-colors">
+            Обо мне
+          </a>
+          <a href="#works" className="text-foreground hover:text-primary-foreground transition-colors">
+            Мои работы
+          </a>
+          <a href="#gallery" className="text-foreground hover:text-primary-foreground transition-colors">
+            Галерея
+          </a>
+          <a href="#newsletter" className="text-foreground hover:text-primary-foreground transition-colors">
+            Подписка
+          </a>
+          <Button className="rounded-full">
+            Связаться
+          </Button>
         </nav>
 
-        <div className="hidden md:block">
-          <Button>Связаться со мной</Button>
-        </div>
-
-        {/* Mobile menu button */}
+        {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-foreground" 
+          className="md:hidden text-foreground p-2"
           onClick={toggleMenu}
-          aria-expanded={isOpen}
-          aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+          aria-label="Открыть меню"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -80,35 +65,41 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <nav 
-          className="md:hidden bg-white border-t py-4 animate-fade-in"
-          itemScope 
-          itemType="http://schema.org/SiteNavigationElement"
-        >
-          <ul className="container space-y-4">
-            {[
-              { title: "Главная", href: "/" },
-              { title: "Обо мне", href: "#about" },
-              { title: "Мои работы", href: "#works" },
-              { title: "Галерея", href: "#gallery" },
-              { title: "Блог", href: "#blog" },
-            ].map((item) => (
-              <li key={item.title}>
-                <a 
-                  href={item.href} 
-                  className="block py-2 font-medium hover:text-primary transition-colors"
-                  onClick={toggleMenu}
-                  itemProp="url"
-                >
-                  <span itemProp="name">{item.title}</span>
-                </a>
-              </li>
-            ))}
-            <li>
-              <Button className="w-full">Связаться со мной</Button>
-            </li>
-          </ul>
-        </nav>
+        <div className="md:hidden bg-background border-t border-border">
+          <div className="container mx-auto py-4 px-4 flex flex-col space-y-4">
+            <a 
+              href="#about" 
+              className="py-2 text-foreground hover:text-primary-foreground transition-colors"
+              onClick={closeMenu}
+            >
+              Обо мне
+            </a>
+            <a 
+              href="#works" 
+              className="py-2 text-foreground hover:text-primary-foreground transition-colors"
+              onClick={closeMenu}
+            >
+              Мои работы
+            </a>
+            <a 
+              href="#gallery" 
+              className="py-2 text-foreground hover:text-primary-foreground transition-colors"
+              onClick={closeMenu}
+            >
+              Галерея
+            </a>
+            <a 
+              href="#newsletter" 
+              className="py-2 text-foreground hover:text-primary-foreground transition-colors"
+              onClick={closeMenu}
+            >
+              Подписка
+            </a>
+            <Button className="rounded-full w-full">
+              Связаться
+            </Button>
+          </div>
+        </div>
       )}
     </header>
   );
