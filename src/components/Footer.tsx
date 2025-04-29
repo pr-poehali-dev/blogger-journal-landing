@@ -67,7 +67,7 @@ const Footer = () => {
                 { text: "Мои работы", href: "#works" },
                 { text: "Галерея", href: "#gallery" },
                 { text: "Блог", href: "#blog" },
-                { text: "Карта сайта", href: "/sitemap.xml" },
+                { text: "Карта сайта", href: "/sitemap" },
               ].map((link, i) => (
                 <li key={i}>
                   <a 
