@@ -6,18 +6,10 @@ import Works from "@/components/Works";
 import Gallery from "@/components/Gallery";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
-import { Helmet } from "react-helmet-async";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>Александра Журналова - Творческие дневники и коллажи</title>
-        <meta name="description" content="Авторские мастер-классы по созданию креативных дневников, уникальным техникам скрапбукинга и художественным коллажам в блокнотах." />
-        <meta name="keywords" content="дневники, коллажи, скрапбукинг, блокноты, творчество, мастер-классы" />
-        <link rel="canonical" href="https://журналова.рф/" />
-      </Helmet>
-      
       <Header />
       <main>
         <Hero />
