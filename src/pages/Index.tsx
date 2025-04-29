@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Works from "@/components/Works";
@@ -28,13 +27,13 @@ const Index: React.FC<IndexProps> = ({ about, works, gallery, newsletter }) => {
     }
   }, [about, works, gallery, newsletter]);
 
+  // Устанавливаем заголовок документа без использования react-helmet-async
+  useEffect(() => {
+    document.title = "Журналова | Главная";
+  }, []);
+
   return (
-    <>
-      <Helmet>
-        <title>Журналова | Главная</title>
-        <meta name="description" content="Журналова - персональный сайт" />
-      </Helmet>
-      
+    <>      
       <Hero />
       
       <section id="about">
