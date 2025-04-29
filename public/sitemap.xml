@@ -7,25 +7,25 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://журналова.рф/#about</loc>
+    <loc>https://журналова.рф/about</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://журналова.рф/#works</loc>
+    <loc>https://журналова.рф/works</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://журналова.рф/#gallery</loc>
+    <loc>https://журналова.рф/gallery</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://журналова.рф/#newsletter</loc>
+    <loc>https://журналова.рф/newsletter</loc>
     <lastmod>2025-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
