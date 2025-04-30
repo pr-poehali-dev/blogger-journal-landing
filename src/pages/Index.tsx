@@ -4,6 +4,8 @@ import About from "@/components/About";
 import Works from "@/components/Works";
 import Gallery from "@/components/Gallery";
 import Newsletter from "@/components/Newsletter";
+// Импортируем компонент с ошибкой
+import BuggyComponent from "@/components/BuggyComponent";
 
 interface IndexProps {
   about?: boolean;
@@ -27,7 +29,7 @@ const Index: React.FC<IndexProps> = ({ about, works, gallery, newsletter }) => {
     }
   }, [about, works, gallery, newsletter]);
 
-  // Устанавливаем заголовок документа без использования react-helmet-async
+  // Устанавливаем заголовок документа
   useEffect(() => {
     document.title = "Журналова | Главная";
   }, []);
@@ -35,6 +37,9 @@ const Index: React.FC<IndexProps> = ({ about, works, gallery, newsletter }) => {
   return (
     <>      
       <Hero />
+      
+      {/* Добавляем компонент с ошибкой */}
+      <BuggyComponent />
       
       <section id="about">
         <About />
