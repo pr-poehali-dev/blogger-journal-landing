@@ -6,6 +6,7 @@ import Gallery from "@/components/Gallery";
 import Newsletter from "@/components/Newsletter";
 import ErrorComponent from "@/components/ErrorComponent";
 import FailedModuleComponent from "@/components/FailedModuleComponent";
+import BuggyComponent from "@/components/BuggyComponent";
 
 interface IndexProps {
   about?: boolean;
