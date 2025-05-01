@@ -1,37 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // Импортируем несуществующий пакет, чтобы вызвать ошибку
-import { nonExistentFunction } from 'non-existent-package';
+import { nonExistentFunction } from './non-existent-package';
 
 const BuggyComponent: React.FC = () => {
+  const [error, setError] = useState<boolean>(false);
+  
+  // Используем несуществующую функцию, чтобы вызвать ошибку
+  useEffect(() => {
+    nonExistentFunction();
+  }, []);
+  
   return (
     <div className="buggy-container my-8">
-      <h2 className="buggy-title">Компонент с CSS-ошибками</h2>
+      <h2 className="text-xl font-bold mb-4">Компонент с ошибками</h2>
+      
+      <button 
+        className="bg-red-500 text-white px-4 py-2 rounded"
+        onClick={() => {
+          // Вызываем ошибку при клике
+          throw new Error('Это намеренно вызванная ошибка!');
+        }}
+      >
+        Нажми, чтобы вызвать ошибку
+      </button>
       
       {/* Блок с ошибкой переполнения */}
-      <div className="overflow-box">
+      <div className="overflow-hidden h-20 my-4 border border-gray-300">
         <p>Этот текст должен быть виден полностью, но из-за ошибки CSS он обрезается и не имеет полос прокрутки.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </div>
       
-      {/* Блок с проблемой наложения */}
-      <div className="position-issue">
-        <div className="box box1">Блок 1</div>
-        <div className="box box2">Блок 2</div>
-        <div className="box box3">Блок 3</div>
-      </div>
-      
-      {/* Блок с проблемой выравнивания */}
-      <div className="alignment-issue">
-        <span>Этот</span>
-        <span>текст</span>
-        <span>имеет</span>
-        <span>проблемы</span>
-        <span>с</span>
-        <span>выравниванием</span>
-      </div>
-      
       {/* Блок с проблемой контрастности */}
-      <div className="contrast-issue">
+      <div className="bg-gray-200 text-gray-300 p-4 my-4">
         <p>Этот текст плохо виден из-за проблем с контрастностью</p>
       </div>
     </div>
