@@ -2,14 +2,7 @@ import React, { useEffect } from "react";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Works from "@/components/Works";
-import React, { useEffect } from "react";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Works from "@/components/Works";
 import Gallery from "@/components/Gallery";
-import Newsletter from "@/components/Newsletter";
-import BuggyComponent from "@/components/BuggyComponent";
-
 import Newsletter from "@/components/Newsletter";
 import BuggyComponent from "@/components/BuggyComponent";
 
