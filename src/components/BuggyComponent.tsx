@@ -1,4 +1,6 @@
 import React from 'react';
+// Импортируем несуществующий пакет, чтобы вызвать ошибку
+import { nonExistentFunction } from 'non-existent-package';
 
 const BuggyComponent: React.FC = () => {
   return (
