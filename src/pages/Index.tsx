@@ -4,7 +4,6 @@ import About from "@/components/About";
 import Works from "@/components/Works";
 import Gallery from "@/components/Gallery";
 import Newsletter from "@/components/Newsletter";
-// Импортируем компонент с ошибкой
 import BuggyComponent from "@/components/BuggyComponent";
 
 interface IndexProps {
@@ -38,7 +37,6 @@ const Index: React.FC<IndexProps> = ({ about, works, gallery, newsletter }) => {
     <>      
       <Hero />
       
-      {/* Добавляем компонент с ошибкой */}
       <BuggyComponent />
       
       <section id="about">
