@@ -5,7 +5,7 @@ import Works from "@/components/Works";
 import Gallery from "@/components/Gallery";
 import Newsletter from "@/components/Newsletter";
 import ErrorComponent from "@/components/ErrorComponent";
-import BuggyComponent from "@/components/BuggyComponent";
+import FailedModuleComponent from "@/components/FailedModuleComponent";
 
 interface IndexProps {
   about?: boolean;
