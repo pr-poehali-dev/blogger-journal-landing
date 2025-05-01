@@ -39,4 +39,118 @@
 
 .read-the-docs {
   color: #888;
+
+.read-the-docs {
+  color: #888;
 }
+
+/* CSS с ошибками для BuggyComponent */
+.buggy-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px dashed #ff0000;
+  position: relative;
+}
+
+.buggy-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  /* Ошибка с margin-collapse */
+  margin-top: -10px;
+}
+
+/* Проблема с переполнением */
+.overflow-box {
+  width: 200px;
+  height: 60px;
+  border: 2px solid #000;
+  /* Отсутствие overflow свойства вызовет обрезание текста */
+  background-color: #e9ecef;
+  /* Конфликт padding/box-sizing */
+  padding: 15px;
+  box-sizing: content-box;
+}
+
+/* Проблема с позиционированием */
+.position-issue {
+  position: relative;
+  height: 150px;
+  margin: 30px 0;
+  background-color: #e2e2e2;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  border: 2px solid #000;
+}
+
+.box1 {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.5);
+  /* Проблема с z-index */
+  z-index: 1;
+  left: 20px;
+  top: 20px;
+}
+
+.box2 {
+  position: absolute;
+  background-color: rgba(0, 255, 0, 0.5);
+  /* Ошибка с z-index - должен быть выше box1 */
+  z-index: 1;
+  left: 60px;
+  top: 40px;
+}
+
+.box3 {
+  position: absolute;
+  background-color: rgba(0, 0, 255, 0.5);
+  /* Ошибка с z-index - должен быть выше box2 */
+  z-index: 0;
+  left: 100px;
+  top: 60px;
+}
+
+/* Проблема с выравниванием */
+.alignment-issue {
+  display: flex;
+  margin: 20px 0;
+  background-color: #f0f0f0;
+  height: 60px;
+}
+
+.alignment-issue span {
+  /* Конфликтующие свойства выравнивания */
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  background-color: #ddd;
+  /* Некоторые элементы используют float, создавая конфликт с flex */
+}
+
+.alignment-issue span:nth-child(odd) {
+  float: left;
+  /* Создает конфликт с родительским flex-контейнером */
+}
+
+.alignment-issue span:nth-child(even) {
+  align-self: flex-end;
+}
+
+/* Проблема с контрастностью */
+.contrast-issue {
+  background-color: #e6e6e6;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.contrast-issue p {
+  /* Плохой контраст */
+  color: #c9c9c9;
+  font-size: 16px;
+}
+
